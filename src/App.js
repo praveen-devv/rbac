@@ -18,7 +18,7 @@ function App() {
       <div className="App">
         <Router>
             <Routes>
-              <Route path="/" element={<><TableComponent /> </>} />
+              <Route path="/" element={<><SideNavbar /> </>} />
               <Route path="/asset" element={<><SideNavbar /><ViewAsset /></>} />
               <Route exact path="/asset/create" element={<><SideNavbar /><CreateAsset /></>} />
               <Route path="/roles" element={<><SideNavbar /> <ListRoles/></>} />
