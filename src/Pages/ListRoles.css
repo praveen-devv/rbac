@@ -1,0 +1,43 @@
+.listroles,
+.users-role {
+  position: relative;
+  height: calc(100vh-60px);
+  left: 68px;
+  width: calc(100% - 68px);
+  padding: 30px;
+  
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-outline {
+  display: flex;
+}
+
+.listroles .input-group .form-outline input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.listroles .input-group button {
+  height: 38px;
+}
+
+.table {
+  width: 100%;
+}
+
+h3 {
+  margin-bottom: 20px;
+  float: left;
+}
+
+
+
+.mymodal {
+  width: 20rem;
+}
