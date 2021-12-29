@@ -40,7 +40,7 @@ const UsersList = (props) => {
     
     return (
         <div className='userslist'>
-            <MTable columns={headCells} datas={usersData} />
+            <MTable columns={headCells} datas={usersData}  />
         </div>
     )
 }
