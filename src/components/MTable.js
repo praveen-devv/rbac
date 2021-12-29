@@ -129,7 +129,6 @@ function MTable({columns,datas,edit,add,deleteAction}) {
     setRowDatas(filteredRows)
   // }
   }
-  deleteAction
   const createSortHandler = (property) => (event) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
