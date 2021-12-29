@@ -11,7 +11,6 @@ import UsersRole from './Pages/UsersRole';
 import ViewAsset from './Pages/ViewAsset'
 import UsersList from './Pages/UsersList'
 import CreateAsset from './Pages/CreateAsset'
-import TableComponent from './components/TableComponent';
 
 function App() {
   return (

@@ -14,7 +14,7 @@ function CreateRole() {
     const dispatch = useDispatch()
 
     const createRole = () =>{
-        dispatch(addRole({'roleid':'2','name':roleName,'rolecode':roleCode}))
+        dispatch(addRole({'roleid':'7','name':roleName,'rolecode':roleCode}))
         navigate('/roles')
     }
 
