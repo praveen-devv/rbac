@@ -187,6 +187,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                 </TableHead>
                 <TableBody >
                     {
+
                         recordsAfterPagingAndSorting().map((rowData,index)=>(
                             <TableRow key={rowData.id} style={index % 2? { background : "#FBF2FF" }:{ background : "white" }} >
                                 {
@@ -219,8 +220,8 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
 
-                                    <Tooltip title="Delete" placement='top' arrow onClick={()=>deleteAction(rowData.id)} > 
 
+                                    <Tooltip title="Delete" placement='top' arrow onClick={()=>deleteAction(rowData.id)} > 
                                       <span><ImCross style={{color:"red"}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                 </TableCell>
