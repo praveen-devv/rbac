@@ -183,7 +183,7 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                 <TableBody >
                     {
                         stableSort(rowDatas, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((rowData,index)=>(
-                            <TableRow key={rowData.roleid} style={index % 2? { background : "#FBF2FF" }:{ background : "white" }} >
+                            <TableRow key={rowData.id} style={index % 2? { background : "#FBF2FF" }:{ background : "white" }} >
                                 {
                                     columns.map((column)=>{
                                         const value= rowData[column.id];
@@ -212,7 +212,7 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                                     <Tooltip title="Edit" placement='top' arrow onClick={edit}> 
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
-                                    <Tooltip title="Delete" placement='top' arrow onClick={deleteAction} > 
+                                    <Tooltip title="Delete" placement='top' arrow onClick={() => deleteAction(rowData.id)} > 
                                       <span><ImCross style={{color:"red"}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                 </TableCell>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import MTable from '../components/MTable'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -18,6 +18,7 @@ import {RiUploadCloudFill} from 'react-icons/ri'
 import {AiFillClockCircle} from 'react-icons/ai'
 import {BsFillFileBarGraphFill} from 'react-icons/bs'
 import {ImUserPlus} from 'react-icons/im'
+import { deleteAsset } from '../redux/actions/assetAction';
  
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +74,18 @@ function ViewAsset() {
   const classes = useStyles();
   let navigate = useNavigate();
 
+  const assets = useSelector(state => state.asset.assets)
+  console.log('assets>>>>>>>>>>..',assets)
+
+    const dispatch = useDispatch()
+
+    const handleDeleteAsset = (id) => {
+        console.log('deleteid',id)
+        dispatch(deleteAsset(id))
+    }
+
+    
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -105,7 +118,7 @@ function ViewAsset() {
     return (
         <div className={`view-asset ${classes.assets}`}>
             
-            <MTable columns={[{id:'name',label:'Entity Name'},{id:'encode',label:'Entity Code'},{id:'entype',label:'Entity Type'}]} datas={[{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'},{'name':'smartrepo','encode':'smrt1','entype':'app'}]} edit={handleClickOpen} add={addAssest} />
+            <MTable columns={[{id:'name',label:'Entity Name'},{id:'encode',label:'Entity Code'},{id:'entype',label:'Entity Type'}]} datas={assets} edit={handleClickOpen} add={addAssest} deleteAction={handleDeleteAsset}/>
 
             <Dialog
                 className={classes.dialog}
@@ -129,28 +142,28 @@ function ViewAsset() {
                                     <Item className={classes.checkboxItem}>
                                         <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1"/>
                                         <RiUploadCloudFill className={classes.checkboxIcon}/>
-                                        <label className={classes.checkboxLabel} for="inlineCheckbox1">Upload</label>
+                                        <label className={classes.checkboxLabel}>Upload</label>
                                     </Item>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Item className={classes.checkboxItem}>
                                         <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1"/>
                                         <AiFillClockCircle className={classes.checkboxIcon}/>
-                                        <label className={classes.checkboxLabel}  for="inlineCheckbox1">Scheduler</label>
+                                        <label className={classes.checkboxLabel}>Scheduler</label>
                                     </Item>
                                 </Grid>
                                 <Grid item xs={6} >
                                     <Item className={classes.checkboxItem}>
                                         <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1"/>
                                         <BsFillFileBarGraphFill className={classes.checkboxIcon}/>
-                                        <label className={classes.checkboxLabel}  for="inlineCheckbox1">Report</label>
+                                        <label className={classes.checkboxLabel}>Report</label>
                                     </Item>
                                 </Grid>
                                 <Grid item xs={6} >
                                     <Item className={classes.checkboxItem}>
                                         <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1"/>
                                         <ImUserPlus className={classes.checkboxIcon}/>
-                                        <label className={classes.checkboxLabel}  for="inlineCheckbox1">Create User</label>
+                                        <label className={classes.checkboxLabel}>Create User</label>
                                     </Item>
                                 </Grid>
                             </Grid>
