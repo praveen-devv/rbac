@@ -1,36 +1,16 @@
 import React,{useState,useEffect} from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Container, makeStyles, Paper, TableBody, TableCell, TableRow,TextField,Tooltip} from '@material-ui/core'
 import {Button,Stack} from '@mui/material';
 import {Link} from 'react-router-dom'
-import { headCells, usersData } from './UsersData';
+// import { headCells, usersData } from './UsersData';
 import {MdEdit,MdDelete} from 'react-icons/md'
 import { red } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import MTable from '../components/MTable';
+import {deleteUser} from '../redux/actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
-    checkbox:{
-        marginRight:'15px',
-    },
-    checkboxLabel:{
-        fontSize:'18px',
-    },
-    checkboxItem:{
-        display:'flex',
-        alignItems:'center',
-
-    },
-    dialogContainer:{
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'space-between'
-    },
-    checkboxIcon:{
-        marginRight:'3px',
-        fontSize:'18px',
-        color:'black'
-    },
     usersList:{
       height:'calc(100vh-60px)',
       position: 'relative',
@@ -38,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
       width: 'calc(100% - 68px)',
       padding: '30px'
     }
-    
-
 }));
 
 // const Item = styled(Paper)(({ theme }) => ({
@@ -54,15 +32,22 @@ const useStyles = makeStyles((theme) => ({
 //     return <Slide direction="down" ref={ref} {...props} />;
 //   });
 
-const UsersList = (props) => {
+const UsersList = () => {
+    const users = useSelector(state => state.users.users)
     const toogleState = useSelector(state => state.toogle.toogleState) 
-    const {users,setUsers} = props
-    const danger = red[500];
+    const dispatch = useDispatch()
     let navigate = useNavigate()
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
     
     const classes = useStyles();
+    const headCells = [
+        {id: 'userId', label: 'User Id'},
+        {id: 'name', label: 'Name'},
+        {id: 'userCode', label: 'User Code'}
+    ]
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id))
+        // console.log(id)
+    }
     useEffect(() => {
         let cls = document.getElementsByClassName('view-usersList')[0];
         if (toogleState) {
@@ -80,7 +65,7 @@ const UsersList = (props) => {
       }
     return (
         <div className={`view-usersList ${classes.usersList}`}>
-            <MTable columns={headCells} datas={usersData} add={addUser} />
+            <MTable columns={headCells} datas={users} add={addUser} deleteAction={deleteUserHandler} searchLabel="Search User"/>
         </div>
     )
 }

@@ -105,7 +105,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 
-function MTable({columns,datas,edit,add,deleteAction}) {
+function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
   console.log("columns:",columns,"datsd",datas,">>>>>")
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -153,7 +153,7 @@ function MTable({columns,datas,edit,add,deleteAction}) {
     <Paper className={classes.paper}>
         <Toolbar className={classes.toolbar}>
             <SearchInput 
-                label="Search Employees"
+                label={searchLabel ? searchLabel: "Search Employees"}
                 InputProps={{
                     startAdornment: (<InputAdornment position="start">
                         <Search />
@@ -195,6 +195,7 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                                         var avatar=false;
                                         if(column.id==='name')avatar=true
                                         console.log("Value>>>>",value)
+                                        console.log(rowData)
                                         return(
                                             avatar ?  <TableCell>
                                                         <Grid container>
@@ -217,7 +218,9 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                                     <Tooltip title="Edit" placement='top' arrow onClick={edit}> 
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
+
                                     <Tooltip title="Delete" placement='top' arrow onClick={()=>deleteAction(rowData.id)} > 
+
                                       <span><ImCross style={{color:"red"}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                 </TableCell>
