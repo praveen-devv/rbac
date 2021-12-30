@@ -12,7 +12,6 @@ import ViewAsset from './Pages/ViewAsset'
 import UsersList from './Pages/UsersList'
 import AddUserForm from './Pages/AddUserForm';
 import CreateAsset from './Pages/CreateAsset'
-import TableComponent from './components/TableComponent';
 
 function App() {
   return (
