@@ -73,7 +73,6 @@ const UsersList = (props) => {
         if (!toogleState) {
             cls.style.left = "68px"
             cls.style.width = "calc(100% - 68px)";
-            
         }
     }, [toogleState])
     const addUser = () =>{

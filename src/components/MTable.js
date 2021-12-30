@@ -123,13 +123,16 @@ function MTable({columns,datas,edit,add,deleteAction}) {
   };
 
   const handleSearch = e => {
+
     let target = e.target;
         setFilterFn({
             fn: items => {
                 if (target.value == "")
                     return items;
                 else
-                    return items.filter(x => x.name.toLowerCase().includes(target.value))
+                    // return items.filter(item => item.name.toLowerCase().includes(target.value))
+                    return items.filter(item => Object.values(item).join(" ").toLowerCase().includes(target.value.toLowerCase()))
+                    // return Object.values(data).join(" ").toLowerCase().includes(target.toLowerCase())
             }
         })
   }
