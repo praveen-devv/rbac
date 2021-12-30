@@ -79,7 +79,6 @@ function ViewAsset() {
     const toogleState = useSelector(state => state.toogle.toogleState)
     const classes = useStyles();
     let navigate = useNavigate();
-
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -94,9 +93,10 @@ function ViewAsset() {
         dispatch(deleteAsset(id))
     }
 
-    
 
-  const [open, setOpen] = useState(false);
+    const handleClickOpen1 = () => {
+        setOpen1(true);
+    };
 
     const handleClose1 = () => {
         setOpen1(false);
@@ -133,8 +133,8 @@ function ViewAsset() {
         <div className={`view-asset ${classes.assets}`}>
 
             
-            <MTable columns={[{id:'name',label:'Entity Name'},{id:'encode',label:'Entity Code'},{id:'entype',label:'Entity Type'}]} datas={assets} edit={handleClickOpen} add={addAssest} deleteAction={handleDeleteAsset}/>
-          <Dialog
+            <MTable columns={[{id:'name',label:'Entity Name'},{id:'encode',label:'Entity Code'},{id:'entype',label:'Entity Type'}]} datas={assets} edit={handleClickOpen1} add={addAssest} deleteAction={handleDeleteAsset}/>
+            <Dialog
                 className={classes.dialog}
                 open={open1}
                 TransitionComponent={Transition}
@@ -181,30 +181,7 @@ function ViewAsset() {
                                         <label className={classes.checkboxLabel}>Create User</label>
                                     </Item>
                                 </Grid>
-
                             </Grid>
-                            <Grid item xs={6}>
-                                <Item className={classes.checkboxItem}>
-                                    <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1" />
-                                    <AiFillClockCircle className={classes.checkboxIcon} />
-                                    <label className={classes.checkboxLabel} for="inlineCheckbox1">Scheduler</label>
-                                </Item>
-                            </Grid>
-                            <Grid item xs={6} >
-                                <Item className={classes.checkboxItem}>
-                                    <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1" />
-                                    <BsFillFileBarGraphFill className={classes.checkboxIcon} />
-                                    <label className={classes.checkboxLabel} for="inlineCheckbox1">Report</label>
-                                </Item>
-                            </Grid>
-                            <Grid item xs={6} >
-                                <Item className={classes.checkboxItem}>
-                                    <input className={classes.checkbox} type="checkbox" id="inlineCheckbox1" value="option1" />
-                                    <ImUserPlus className={classes.checkboxIcon} />
-                                    <label className={classes.checkboxLabel} for="inlineCheckbox1">Create User</label>
-                                </Item>
-                            </Grid>
-                        </Grid>
                     </form>
                 </DialogContent>
                 <DialogActions>
@@ -236,7 +213,6 @@ function ViewAsset() {
                     <Button onClick={handleClose2}>Save</Button>
                 </DialogActions>
             </Dialog>
-
 
         </div>
     )
