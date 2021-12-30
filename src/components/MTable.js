@@ -23,6 +23,7 @@ import {
     TablePagination,Toolbar,
     InputAdornment,
  } from '@material-ui/core';
+import AddButton from './AddButton';
 
 const useStyles = makeStyles((theme) => ({
   paper:{
@@ -31,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 650,
+    '& thead th': {
+      color: '#ffffff',
+  },
+  '& thead th:hover': {
+    color: '#ffffff',
+  },
   },
   tableContainer: {
       borderRadius: 15,
@@ -41,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tableHeader:{
     background:'#590037',
-    
   },
   tableHeaderCell: {
       fontWeight: 'bold',
@@ -49,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize:'17px',
   },
   avatar: {
-      // backgroundColor: theme.palette.primary.light,
       backgroundColor:'#8267BE',
       color: theme.palette.getContrastText(theme.palette.primary.light),
   },
@@ -71,24 +76,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -101,15 +88,31 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
 
-function MTable({columns,datas,edit,add,deleteAction}) {
-  console.log("columns:",columns,"datsd",datas,">>>>>",edit)
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+
+function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
+  console.log("columns:",columns,"datsd",datas,">>>>>")
   const classes = useStyles();
-  const [rowDatas, setRowDatas] = useState(datas)
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('name');
+  const [order, setOrder] = useState();
+  const [orderBy, setOrderBy] = useState();
+  const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,27 +124,36 @@ function MTable({columns,datas,edit,add,deleteAction}) {
   };
 
   const handleSearch = e => {
-    let target = e.target.value;
-    // if(target.length>3){
-    const filteredRows = datas.filter((data)=>{
-      return data.name.toLowerCase().includes(target)
-    })
-    setRowDatas(filteredRows)
-  // }
-  }
 
-  const createSortHandler = (property) => (event) => {
+    let target = e.target;
+        setFilterFn({
+            fn: items => {
+                if (target.value === "")
+                    return items;
+                else
+                    // return items.filter(item => item.name.toLowerCase().includes(target.value))
+                    return items.filter(item => Object.values(item).join(" ").toLowerCase().includes(target.value.toLowerCase()))
+                    // return Object.values(data).join(" ").toLowerCase().includes(target.toLowerCase())
+            }
+        })
+  }
+  const createSortHandler = (property) =>{
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
+  const recordsAfterPagingAndSorting = () => {
+    return stableSort(filterFn.fn(datas), getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+  }
+
+  console.log("RRRRRRRRRRRRRRRRRRRRRRRRR",stableSort(datas, getComparator(order, orderBy)))
 
   return (
     <Paper className={classes.paper}>
         <Toolbar className={classes.toolbar}>
             <SearchInput 
-                label="Search Employees"
+                label={searchLabel ? searchLabel: "Search Employees"}
                 InputProps={{
                     startAdornment: (<InputAdornment position="start">
                         <Search />
@@ -149,8 +161,8 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                 }}
                 onChange={handleSearch}
             />
-            <button type="button" className="btn btn-primary" onClick={add} >Add<BiPlusMedical style={{margin:'5px 0px 10px 5px'}}/></button>
-        </Toolbar>
+            <AddButton onClick={add} />  
+          </Toolbar>
             <TableContainer  className={classes.tableContainer}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead className={classes.tableHeader}>
@@ -158,20 +170,13 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                       {
                           columns.map((colData)=>(
                             <TableCell key={colData.id} className={classes.tableHeaderCell} sortDirection={orderBy === colData.id ? order : false}>
-                              {colData.label}
+                              
                               <TableSortLabel
                                 active={orderBy === colData.id}
                                 direction={orderBy === colData.id ? order : 'asc'}
-                                onClick={createSortHandler(colData.id)}
+                                onClick={()=> {createSortHandler(colData.id)}}
                                 className={classes.tableSortLabel}
-                              >
-                                
-                                {orderBy === colData.id ? (
-                                  <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                  </Box>
-                                ) : null}
-                                
+                              >{colData.label}
                               </TableSortLabel>
                               
                             </TableCell>
@@ -182,7 +187,8 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                 </TableHead>
                 <TableBody >
                     {
-                        stableSort(rowDatas, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((rowData,index)=>(
+
+                        recordsAfterPagingAndSorting().map((rowData,index)=>(
                             <TableRow key={rowData.id} style={index % 2? { background : "#FBF2FF" }:{ background : "white" }} >
                                 {
                                     columns.map((column)=>{
@@ -190,6 +196,7 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                                         var avatar=false;
                                         if(column.id==='name')avatar=true
                                         console.log("Value>>>>",value)
+                                        console.log(rowData)
                                         return(
                                             avatar ?  <TableCell>
                                                         <Grid container>
@@ -212,7 +219,9 @@ function MTable({columns,datas,edit,add,deleteAction}) {
                                     <Tooltip title="Edit" placement='top' arrow onClick={edit}> 
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
-                                    <Tooltip title="Delete" placement='top' arrow onClick={() => deleteAction(rowData.id)} > 
+
+
+                                    <Tooltip title="Delete" placement='top' arrow onClick={()=>deleteAction(rowData.id)} > 
                                       <span><ImCross style={{color:"red"}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                 </TableCell>
