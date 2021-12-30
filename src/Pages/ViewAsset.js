@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
         left: '68px',
         width: 'calc(100% - 68px)',
         padding: '30px'
-    }
-
+    },
+    
 
 }));
 
@@ -191,14 +191,10 @@ function ViewAsset() {
             </Dialog>
 
 
-            <Dialog open={open2} onClose={handleClose2}>
+            <Dialog open={open2} onClose={handleClose2} className={classes.dialog2} fullWidth>
                 <DialogTitle>Add New</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
-                    <TextField
+                   <TextField
                         autoFocus
                         margin="dense"
                         id="name"
