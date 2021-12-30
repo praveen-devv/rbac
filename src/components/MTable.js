@@ -124,7 +124,8 @@ function MTable({columns,datas,edit,add,deleteAction}) {
     let target = e.target.value;
     // if(target.length>3){
     const filteredRows = datas.filter((data)=>{
-      return data.name.toLowerCase().includes(target)
+      // return data.name.toLowerCase().includes(target)
+      return Object.values(data).join(" ").toLowerCase().includes(target.toLowerCase())
     })
     setRowDatas(filteredRows)
   // }
