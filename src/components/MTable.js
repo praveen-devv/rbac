@@ -23,6 +23,7 @@ import {
     TablePagination,Toolbar,
     InputAdornment,
  } from '@material-ui/core';
+import AddButton from './AddButton';
 
 const useStyles = makeStyles((theme) => ({
   paper:{
@@ -127,7 +128,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
     let target = e.target;
         setFilterFn({
             fn: items => {
-                if (target.value == "")
+                if (target.value === "")
                     return items;
                 else
                     // return items.filter(item => item.name.toLowerCase().includes(target.value))
@@ -160,8 +161,8 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                 }}
                 onChange={handleSearch}
             />
-            <button type="button" className="btn btn-primary" onClick={add} >Add<BiPlusMedical style={{margin:'5px 0px 10px 5px'}}/></button>
-        </Toolbar>
+            <AddButton onClick={add} />  
+          </Toolbar>
             <TableContainer  className={classes.tableContainer}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead className={classes.tableHeader}>
@@ -217,7 +218,9 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                     <Tooltip title="Edit" placement='top' arrow onClick={() => edit(rowData)}> 
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
-                                    <Tooltip title="Delete" placement='top' arrow  onClick={()=>deleteAction(rowData.id)}> 
+
+                                    <Tooltip title="Delete" placement='top' arrow onClick={()=>deleteAction(rowData.id)} > 
+
                                       <span><ImCross style={{color:"red"}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                 </TableCell>
