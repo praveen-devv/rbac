@@ -1,5 +1,5 @@
 const initialState ={
-    roles:[{roleid:'1',name:'Admin',rolecode:'adm01'},{roleid:'2',name:'Tenantadmin',rolecode:'tadm01'},{roleid:'3',name:'PayrollProcessor',rolecode:'pp02'},{roleid:'4',name:'Employee',rolecode:'emp01'},{roleid:'5',name:'HR',rolecode:'hr01'}]
+    roles:[{id:'1',name:'Admin',rolecode:'adm01'},{id:'2',name:'Tenantadmin',rolecode:'tadm01'},{id:'3',name:'PayrollProcessor',rolecode:'pp02'},{id:'4',name:'Employee',rolecode:'emp01'},{id:'5',name:'HR',rolecode:'hr01'}]
 }
 
 const roleReducer = (state=initialState,action) =>{
@@ -15,7 +15,7 @@ const roleReducer = (state=initialState,action) =>{
             return{
                 ...state,
                 roles:state.roles.filter(role => {
-                    return action.payload!==role.roleid
+                    return action.payload!==role.id
                 })
             }
         default: return state

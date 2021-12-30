@@ -28,9 +28,8 @@ function ListRoles() {
   const classes = useStyles();
   let navigate = useNavigate()
 
-  const handledeleteRole = (e) =>{
-    console.log("eventtttttttttt",e.target.parentElement.parentElement.parentElement)
-    // dispatch(deleteRole(id))
+  const handledeleteRole = (id) =>{
+    dispatch(deleteRole(id))
   }
   const columns=[{id:'name',label:'Role Name'},{id:'rolecode',label:'Role Code'}]
 
