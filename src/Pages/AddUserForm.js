@@ -13,20 +13,7 @@ function AddUserForm() {
     const [userCode, setUserCode] = useState("");
     let navigate = useNavigate()
     const dispatch = useDispatch()
-    // material ui snackbar
-    // const [open, setOpen] = useState(false);
-    // const handleClick = () => {
-    //     setOpen(true);
-    //   };
     
-    //   const handleClose = (event, reason) => {
-    //     if (reason === 'clickaway') {
-    //       return;
-    //     }
-    
-    //     setOpen(false);
-    //   };
-    //   // material ui snackbar
     const createUser = () =>{
       dispatch(addUser({"userId":userId,"name":userName,"userCode":userCode}))
       navigate('/user')
@@ -34,11 +21,6 @@ function AddUserForm() {
     return (
       <Box className='createUser'>
         <Paper  variant="outlined" elevation={8} square className="paper">
-            {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              User added successfully!
-             </Alert>
-           </Snackbar> */}
             <form className='form'>
                 <h2>Add User</h2>
               <TextField

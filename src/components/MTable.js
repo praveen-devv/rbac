@@ -214,7 +214,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                     <Tooltip title="View" placement='top' arrow>  
                                       <span><FaUserAlt style={{color:'green'}} className={classes.tooltip} /></span>
                                     </Tooltip>
-                                    <Tooltip title="Edit" placement='top' arrow onClick={edit}> 
+                                    <Tooltip title="Edit" placement='top' arrow onClick={() => edit(rowData)}> 
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                     <Tooltip title="Delete" placement='top' arrow  onClick={()=>deleteAction(rowData.id)}> 
