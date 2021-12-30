@@ -10,8 +10,8 @@ import ListRoles from './Pages/ListRoles';
 import UsersRole from './Pages/UsersRole';
 import ViewAsset from './Pages/ViewAsset'
 import UsersList from './Pages/UsersList'
+import AddUserForm from './Pages/AddUserForm';
 import CreateAsset from './Pages/CreateAsset'
-import TableComponent from './components/TableComponent';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<><SideNavbar /><UsersList /> </>} />
               <Route path="/user" element={<><SideNavbar /><UsersList /> </>} />
+              <Route path="/user/create" element={<><SideNavbar /><AddUserForm /> </>} />
               <Route path="/asset" element={<><SideNavbar /><ViewAsset /></>} />
               <Route exact path="/asset/create" element={<><SideNavbar /><CreateAsset /></>} />
               <Route path="/roles" element={<><SideNavbar /> <ListRoles/></>} />

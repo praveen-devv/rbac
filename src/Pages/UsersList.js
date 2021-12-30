@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import { useSelector } from 'react-redux'
 import { Container, makeStyles, Paper, TableBody, TableCell, TableRow,TextField,Tooltip} from '@material-ui/core'
 import {Button,Stack} from '@mui/material';
 import {Link} from 'react-router-dom'
@@ -9,27 +10,52 @@ import { useNavigate } from 'react-router-dom';
 import MTable from '../components/MTable';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width:'100vw',
-        height: '100vh',
-        backgroundColor: theme.palette.primary.main,
+    checkbox:{
+        marginRight:'15px',
     },
-    paper: {
-        maxWidth: '60vw',
-        minHeight: '50vh',
-        margin: '9% auto',
-        borderRadius: '35px 35px 5px 5px',
-        boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
-        [theme.breakpoints.down('md')]:{
-            maxWidth: '90vw',
-        },
-        [theme.breakpoints.down('sm')]:{
-            overflowX: 'auto'
-        }
+    checkboxLabel:{
+        fontSize:'18px',
+    },
+    checkboxItem:{
+        display:'flex',
+        alignItems:'center',
+
+    },
+    dialogContainer:{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'space-between'
+    },
+    checkboxIcon:{
+        marginRight:'3px',
+        fontSize:'18px',
+        color:'black'
+    },
+    usersList:{
+      height:'calc(100vh-60px)',
+      position: 'relative',
+      left:'68px',
+      width: 'calc(100% - 68px)',
+      padding: '30px'
     }
-}))
+    
+
+}));
+
+// const Item = styled(Paper)(({ theme }) => ({
+//     ...theme.typography.body2,
+//     padding: theme.spacing(1),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//   }));
+
+
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//     return <Slide direction="down" ref={ref} {...props} />;
+//   });
 
 const UsersList = (props) => {
+    const toogleState = useSelector(state => state.toogle.toogleState) 
     const {users,setUsers} = props
     const danger = red[500];
     let navigate = useNavigate()
@@ -37,10 +63,24 @@ const UsersList = (props) => {
     const [searchResults, setSearchResults] = useState([]);
     
     const classes = useStyles();
-    
+    useEffect(() => {
+        let cls = document.getElementsByClassName('view-usersList')[0];
+        if (toogleState) {
+            cls.style.left = "260px";
+            cls.style.transition = "all 0.5s ease";
+            cls.style.width = "calc(100% - 260px)";
+        }
+        if (!toogleState) {
+            cls.style.left = "68px"
+            cls.style.width = "calc(100% - 68px)";
+        }
+    }, [toogleState])
+    const addUser = () =>{
+        navigate('/user/create')
+      }
     return (
-        <div className='userslist'>
-            <MTable columns={headCells} datas={usersData}  />
+        <div className={`view-usersList ${classes.usersList}`}>
+            <MTable columns={headCells} datas={usersData} add={addUser} />
         </div>
     )
 }
