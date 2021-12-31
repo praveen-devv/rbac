@@ -70,9 +70,32 @@ const useStyles = makeStyles((theme) => ({
     cursor:'pointer'
   },
   toolbar:{
+    marginTop:'25px',
     marginBottom:'20px',
     display:'flex',
     justifyContent:'space-between'
+  },
+  label:{
+    borderRadius:'15px',
+    backgroundColor:'#590037',
+    color:'#ffffff',
+    marginTop:'-40px',
+    width:'fit-content',
+    padding:'5px 20px',
+  },
+  addButton:{
+    marginTop:'20px',
+  },
+
+  '@media only screen and (max-width: 600px)': {
+    toolbar :{
+      flexDirection:'column',
+      alignItems:'flex-start'
+    },
+    addButton:{
+      marginTop:'20px',
+    }
+
   }
 }));
 
@@ -119,7 +142,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(event.target.value);
     setPage(0);
   };
 
@@ -151,8 +174,10 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
 
   return (
     <Paper className={classes.paper}>
+        <h3 className={classes.label}>USERS</h3>
         <Toolbar className={classes.toolbar}>
             <SearchInput 
+                className={classes.searchBox} 
                 label={searchLabel ? searchLabel: "Search Employees"}
                 InputProps={{
                     startAdornment: (<InputAdornment position="start">
@@ -161,7 +186,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                 }}
                 onChange={handleSearch}
             />
-            <AddButton onClick={add} />  
+            <AddButton onClick={add} classname={classes.addButton} />  
           </Toolbar>
             <TableContainer  className={classes.tableContainer}>
               <Table className={classes.table} aria-label="simple table">
@@ -198,7 +223,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                         console.log("Value>>>>",value)
                                         console.log(rowData)
                                         return(
-                                            avatar ?  <TableCell>
+                                            avatar ?  <TableCell key={column.id}>
                                                         <Grid container>
                                                           <Grid item lg={2}>
                                                               <Avatar alt={value} src='.' className={classes.avatar}/>
@@ -237,8 +262,8 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                 count={datas.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                onPageChange={handleChangePage}
             />
           </Paper>
   );
