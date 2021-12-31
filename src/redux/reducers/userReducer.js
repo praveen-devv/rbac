@@ -30,6 +30,7 @@ const userReducer = (state=initialState,action) =>{
                     user.name = action.payload.name
                     user.userCode = action.payload.userCode
                 }
+                return state
             })
             return{
                 ...state,
