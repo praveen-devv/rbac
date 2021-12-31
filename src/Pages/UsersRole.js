@@ -11,8 +11,8 @@ import {RiDeleteBin5Fill} from 'react-icons/ri'
 
 function UsersRole() {
 
-
-    const [roles, setRoles] = useState([{id:'1',name:'Admin',code:'adm01'},{id:'1',name:'Admin',code:'adm01'},{id:'1',name:'Admin',code:'adm01'},{id:'1',name:'Admin',code:'adm01'}])  
+  // setRoles
+    const [roles] = useState([{id:'1',name:'Admin',code:'adm01'},{id:'1',name:'Admin',code:'adm01'},{id:'1',name:'Admin',code:'adm01'},{id:'1',name:'Admin',code:'adm01'}])  
     const toogleState = useSelector(state => state.toogle.toogleState)
 
     const [show, setShow] = useState(false);

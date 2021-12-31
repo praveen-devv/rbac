@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     checkboxLabel: {
         fontSize: '18px',
+        color: 'black'
     },
     checkboxItem: {
         display: 'flex',
@@ -43,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '18px',
         color: 'black'
     },
-    checkboxLabel: {
-        color: 'black'
-    },
+    // checkboxLabel: {
+    //     color: 'black'
+    // },
     assets: {
         height: 'calc(100vh-60px)',
         position: 'relative',

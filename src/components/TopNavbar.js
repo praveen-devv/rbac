@@ -1,7 +1,7 @@
 import React from 'react'
 import {CgProfile} from 'react-icons/cg'
 import './TopNavbar.css'
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import {MdPermIdentity} from 'react-icons/md'
 
 function TopNavbar(props) {

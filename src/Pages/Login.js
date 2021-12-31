@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './Login.css'
 import {FaUserCircle, FaLock} from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
+// useDispatch
+import {  useSelector } from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 
 function Login() {
@@ -12,14 +13,14 @@ function Login() {
     let navigate = useNavigate();
 
     const users = useSelector(state => state.user.userCredentials)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const handleLogin = (event) =>{
         event.preventDefault()
         // dispatch(addUser({'username':username,'password':password}))
-        console.log(users)
+        // console.log(users)
         if(username===users[0].username && password === users[0].password){
-            console.log( 'success')
+            // console.log( 'success')
             navigate('/dashboard')
         }
         else{

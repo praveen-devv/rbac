@@ -1,10 +1,12 @@
 import React,{useState} from 'react'
-import { TextField, Button, Paper,Card, FormControl,Input, InputLabel, FormHelperText ,Box} from "@material-ui/core";
+// Card, FormControl,Input, InputLabel, FormHelperText 
+import { TextField, Button, Paper,Box} from "@material-ui/core";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import {addUser} from '../redux/actions/userActions'
-import {Alert,Snackbar} from '@mui/material';
-import CloseIcon from "@material-ui/icons/Close";
+import { showSuccessSnackbar } from '../redux/actions/snackbarActions';
+// import {Alert,Snackbar} from '@mui/material';
+// import CloseIcon from "@material-ui/icons/Close";
 import './AddUserForm.css'
 
 function AddUserForm() {
@@ -16,6 +18,7 @@ function AddUserForm() {
     
     const createUser = () =>{
       dispatch(addUser({"userId":userId,"name":userName,"userCode":userCode}))
+      // dispatch(showSuccessSnackbar("Success!"));
       navigate('/user')
   }
     return (

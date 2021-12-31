@@ -1,14 +1,15 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Container, makeStyles, Paper, TableBody, TableCell, TableRow,TextField,Tooltip} from '@material-ui/core'
-import {Button,Stack} from '@mui/material';
-import {Link} from 'react-router-dom'
+// Container,Paper, TableBody, TableCell, TableRow,TextField,Tooltip
+import {  makeStyles} from '@material-ui/core'
+// import {Button,Stack} from '@mui/material';
+// import {Link} from 'react-router-dom'
 // import { headCells, usersData } from './UsersData';
-import {MdEdit,MdDelete} from 'react-icons/md'
-import { red } from '@mui/material/colors';
+// import {MdEdit,MdDelete} from 'react-icons/md'
+// import { red } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import MTable from '../components/MTable';
-import {deleteUser} from '../redux/actions/userActions'
+import {addUser,deleteUser} from '../redux/actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
     usersList:{
@@ -20,17 +21,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// const Item = styled(Paper)(({ theme }) => ({
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//   }));
 
-
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//     return <Slide direction="down" ref={ref} {...props} />;
-//   });
 
 const UsersList = () => {
     const users = useSelector(state => state.users.users)
@@ -49,7 +40,7 @@ const UsersList = () => {
         // console.log(id)
     }
     const editUserHandler = (user) => {
-            console.log(user)
+            // console.log(user)
             navigate('/user/edit',{ state: user })
           
     }
@@ -65,13 +56,13 @@ const UsersList = () => {
             cls.style.width = "calc(100% - 68px)";
         }
     }, [toogleState])
-    const addUser = () =>{
+    const addUserNavigate = () =>{
         navigate('/user/create')
       }
       
     return (
         <div className={`view-usersList ${classes.usersList}`}>
-            <MTable columns={headCells} datas={users} add={addUser}  edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Search User"/>
+            <MTable columns={headCells} datas={users} add={addUserNavigate} filterAction={addUser} edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Search User"/>
         </div>
     )
 }
