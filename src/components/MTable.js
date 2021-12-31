@@ -6,9 +6,9 @@ import Tooltip from '@mui/material/Tooltip';
 import { Search } from "@material-ui/icons";
 import SearchInput from './SearchInput';
 import TableSortLabel from '@mui/material/TableSortLabel';
-// import Box from '@mui/material/Box';
-// import { visuallyHidden } from '@mui/utils';
-// import {BiPlusMedical} from 'react-icons/bi'
+import Box from '@mui/material/Box';
+import { visuallyHidden } from '@mui/utils';
+import {BiPlusMedical} from 'react-icons/bi'
 import { 
     Table,
     TableBody,
@@ -23,7 +23,6 @@ import {
     TablePagination,Toolbar,
     InputAdornment,
  } from '@material-ui/core';
-import AddButton from './AddButton';
 
 const useStyles = makeStyles((theme) => ({
   paper:{
@@ -106,54 +105,36 @@ function descendingComparator(a, b, orderBy) {
 
 
 function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
-  // console.log("columns:",columns,"datsd",datas,">>>>>")
+  console.log("columns:",columns,"datsd",datas,">>>>>")
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState();
   const [orderBy, setOrderBy] = useState();
   const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    // console.log(event.target.value)
+    setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
   const handleSearch = e => {
 
-    let target = e.target.value;
-    // setSearchTerm(e.target.value)
+    let target = e.target;
         setFilterFn({
             fn: items => {
-                if (target === "")
+                if (target.value == "")
                     return items;
                 else
                     // return items.filter(item => item.name.toLowerCase().includes(target.value))
-                    return items.filter(item => Object.values(item).join(" ").toLowerCase().includes(target.toLowerCase()))
+                    return items.filter(item => Object.values(item).join(" ").toLowerCase().includes(target.value.toLowerCase()))
                     // return Object.values(data).join(" ").toLowerCase().includes(target.toLowerCase())
             }
         })
-        // setFilterFn({
-        //   fn: items => {
-        //     if(searchTerm !== ""){
-        //       const filteredList = items.filter(item =>{
-        //           return Object.values(item).join(" ").toLowerCase().includes(searchTerm.toLowerCase())
-        //       })
-        //       setSearchResults(filteredList)
-        //       // dispatch(filterAction(filteredList))
-        //   }else{
-        //       // dispatch(filterAction(items))
-        //         setSearchResults(datas)
-        //   }
-        //   }
-        // })
   }
   const createSortHandler = (property) =>{
     const isAsc = orderBy === property && order === 'asc';
@@ -162,11 +143,10 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
   };
 
   const recordsAfterPagingAndSorting = () => {
-    // const data = searchTerm ? datas: searchResults
     return stableSort(filterFn.fn(datas), getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
   }
 
-  // console.log("RRRRRRRRRRRRRRRRRRRRRRRRR",stableSort(datas, getComparator(order, orderBy)))
+  console.log("RRRRRRRRRRRRRRRRRRRRRRRRR",stableSort(datas, getComparator(order, orderBy)))
 
   return (
     <Paper className={classes.paper}>
@@ -178,12 +158,10 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                         <Search />
                     </InputAdornment>)
                 }}
-                // value={searchTerm}
                 onChange={handleSearch}
-                autoComplete="off"
             />
-            <AddButton onClick={add} />  
-          </Toolbar>
+            <button type="button" className="btn btn-primary" onClick={add} >Add<BiPlusMedical style={{margin:'5px 0px 10px 5px'}}/></button>
+        </Toolbar>
             <TableContainer  className={classes.tableContainer}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead className={classes.tableHeader}>
@@ -215,7 +193,8 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                         const value= rowData[column.id];
                                         var avatar=false;
                                         if(column.id==='name')avatar=true
-                            
+                                        console.log("Value>>>>",value)
+                                        console.log(rowData)
                                         return(
                                             avatar ?  <TableCell>
                                                         <Grid container>
@@ -238,9 +217,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                     <Tooltip title="Edit" placement='top' arrow onClick={() => edit(rowData)}> 
                                       <span><FaEdit style={{color:'orange'}} className={classes.tooltip} /></span>
                                     </Tooltip>
-
-                                    <Tooltip title="Delete" placement='top' arrow onClick={()=>deleteAction(rowData.id)} > 
-
+                                    <Tooltip title="Delete" placement='top' arrow  onClick={()=>deleteAction(rowData.id)}> 
                                       <span><ImCross style={{color:"red"}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                 </TableCell>
@@ -257,8 +234,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
-                // onChangeRowsPerPage={handleChangeRowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
             />
           </Paper>
   );

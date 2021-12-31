@@ -1,24 +1,21 @@
 import React, { useEffect } from 'react'
 import {RiAdminFill} from 'react-icons/ri'
-// import {AiFillDashboard, AiFillSetting, AiOutlineMenu} from 'react-icons/ai'
-import {AiOutlineMenu} from 'react-icons/ai'
-// import {IoMdArrowDropdown} from 'react-icons/io'
+import {AiFillDashboard, AiFillSetting, AiOutlineMenu} from 'react-icons/ai'
+import {IoMdArrowDropdown} from 'react-icons/io'
 
 import './SideNavbar.css'
-// import { MdSpeakerNotes } from 'react-icons/md'
-// import { ImCross } from 'react-icons/im'
-// FaDatabase
-import {  FaUserPlus, FaUserTag } from 'react-icons/fa'
+import { MdSpeakerNotes } from 'react-icons/md'
+import { ImCross } from 'react-icons/im'
+import { FaDatabase, FaUserPlus, FaUserTag } from 'react-icons/fa'
 import {MdOutlineSecurity} from 'react-icons/md'
 import TopNavbar from './TopNavbar'
-// useSelector
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {toggleMenu} from '../redux/action'
 
 function SideNavbar() {
 
-    // const toogleState = useSelector(state => state.toogleState)
+    const toogleState = useSelector(state => state.toogleState)
     const dispatch = useDispatch();
     
 
@@ -27,7 +24,7 @@ function SideNavbar() {
     
     useEffect(() => {
         let arrow = document.querySelectorAll(".arrow");
-        // console.log(arrow);
+        console.log(arrow);
         for (var i = 0; i < arrow.length; i++) {
             arrow[i].addEventListener("click", (e)=>{
             let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
@@ -36,7 +33,7 @@ function SideNavbar() {
         }
         let sidebar = document.querySelector(".sidebar");
         let sidebarBtn = document.querySelector(".menu");
-        // console.log(sidebarBtn);
+        console.log(sidebarBtn);
         sidebarBtn.addEventListener("click", ()=>{
         sidebar.classList.toggle("close");
         });

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ListRoles.css'
 import { useDispatch, useSelector } from 'react-redux'
-import {  useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { deleteRole } from '../redux/actions/roleActions'
 import MTable from '../components/MTable'
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,15 +21,16 @@ function ListRoles() {
 
   // const [roles, setRoles] = useState([{}])
   const roles = useSelector(state => state.role.roles)
-  // console.log("ROLEEEEEEEEEEEEEEEEEEEEEEEE",roles)
+  console.log("ROLEEEEEEEEEEEEEEEEEEEEEEEE",roles)
   const dispatch = useDispatch()
   // console.log("roles from store>>>>",roles)
   const toogleState = useSelector(state => state.toogle.toogleState)
   const classes = useStyles();
   let navigate = useNavigate()
 
-  const handledeleteRole = (id) =>{
-    dispatch(deleteRole(id))
+  const handledeleteRole = (e) =>{
+    console.log("eventtttttttttt",e.target.parentElement.parentElement.parentElement)
+    // dispatch(deleteRole(id))
   }
   const columns=[{id:'name',label:'Role Name'},{id:'rolecode',label:'Role Code'}]
 
