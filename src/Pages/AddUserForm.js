@@ -3,7 +3,7 @@ import { TextField, Button, Paper,Card, FormControl,Input, InputLabel, FormHelpe
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import {addUser} from '../redux/actions/userActions'
-import {Alert,Snackbar} from '@mui/material';
+import { showSuccessSnackbar } from '../redux/actions/snackbarActions';
 import CloseIcon from "@material-ui/icons/Close";
 import './AddUserForm.css'
 
@@ -16,6 +16,7 @@ function AddUserForm() {
     
     const createUser = () =>{
       dispatch(addUser({"userId":userId,"name":userName,"userCode":userCode}))
+      // dispatch(showSuccessSnackbar("success!"))
       navigate('/user')
   }
     return (

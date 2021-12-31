@@ -13,12 +13,14 @@ import UsersList from './Pages/UsersList'
 import AddUserForm from './Pages/AddUserForm';
 import EditUserForm from './Pages/EditUserForm';
 import CreateAsset from './Pages/CreateAsset'
+import SuccessSnackbar from './components/SuccessSnackbar'
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
         <Router>
+          <SuccessSnackbar />
             <Routes>
               <Route path="/" element={<><SideNavbar /><UsersList /> </>} />
               <Route path="/user" element={<><SideNavbar /><UsersList /> </>} />
