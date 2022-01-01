@@ -24,9 +24,18 @@ const userReducer = (state=initialState,action) =>{
                 users:[...state.users,action.payload]
             }
         case 'EDIT_USER':
+            state.users.map(user => {
+                if(action.payload.userId === user.userId){
+                    user.userId = action.payload.userId
+                    user.name = action.payload.name
+                    user.userCode = action.payload.userCode
+                }
+                return state
+            })
             return{
                 ...state,
-                users:[...state.users,action.payload]
+                users:[...state.users]
+                
             }
         case 'DELETE_USER':
             return{
@@ -40,3 +49,10 @@ const userReducer = (state=initialState,action) =>{
 }
 
 export default userReducer;
+// let editedUser = users.map(user => {
+//     if(user.userId === targetedUser.state.userId){
+//       user.userId = userId
+//       user.name = userName
+//       user.userCode = userCode
+//     }
+//   })

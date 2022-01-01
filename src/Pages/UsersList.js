@@ -48,6 +48,11 @@ const UsersList = () => {
         dispatch(deleteUser(id))
         // console.log(id)
     }
+    const editUserHandler = (user) => {
+            console.log(user)
+            navigate('/user/edit',{ state: user })
+          
+    }
     useEffect(() => {
         let cls = document.getElementsByClassName('view-usersList')[0];
         if (toogleState) {
@@ -63,9 +68,10 @@ const UsersList = () => {
     const addUser = () =>{
         navigate('/user/create')
       }
+      
     return (
         <div className={`view-usersList ${classes.usersList}`}>
-            <MTable columns={headCells} datas={users} add={addUser} deleteAction={deleteUserHandler} searchLabel="Search User"/>
+            <MTable columns={headCells} datas={users} add={addUser}  edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Search User"/>
         </div>
     )
 }

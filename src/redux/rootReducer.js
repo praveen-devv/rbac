@@ -6,14 +6,14 @@ import  loginReducer  from "./reducers/loginReducer";
 import userReducer from "./reducers/userReducer"
 import roleReducer from "./reducers/roleReducers";
 import assetReducer from "./reducers/assetReducer"
-
+import snackbarReducer from "./reducers/snackbarReducer";
 const rootReducer = combineReducers({
     toogle:toogleReducer,
     user:loginReducer,
-  users: userReducer,
+    users: userReducer,
     role:roleReducer,
-   asset:assetReducer
-
+    snackbar:snackbarReducer
+  asset:assetReducer
 })
 
 export default rootReducer;
