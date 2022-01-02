@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     user:loginReducer,
     users: userReducer,
     role:roleReducer,
-    snackbar:snackbarReducer
+    snackbar:snackbarReducer,
   asset:assetReducer
 })
 
