@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Container, makeStyles, Paper, TableBody, TableCell, TableRow,TextField,Tooltip} from '@material-ui/core'
-import {Button,Stack} from '@mui/material';
-import {Link} from 'react-router-dom'
+import { Container, makeStyles, Box, Typography,Modal, Avatar} from '@material-ui/core'
+// import {Button,Stack} from '@mui/material';
+// import {Link} from 'react-router-dom'
 // import { headCells, usersData } from './UsersData';
-import {MdEdit,MdDelete} from 'react-icons/md'
-import { red } from '@mui/material/colors';
+// import {MdEdit,MdDelete} from 'react-icons/md'
+// import { red } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import MTable from '../components/MTable';
 import {deleteUser} from '../redux/actions/userActions'
@@ -19,6 +19,18 @@ const useStyles = makeStyles((theme) => ({
       padding: '30px'
     }
 }));
+//modal
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 // const Item = styled(Paper)(({ theme }) => ({
 //     ...theme.typography.body2,
@@ -31,14 +43,23 @@ const useStyles = makeStyles((theme) => ({
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //     return <Slide direction="down" ref={ref} {...props} />;
 //   });
-
+let userDetails = {}
 const UsersList = () => {
     const users = useSelector(state => state.users.users)
     const toogleState = useSelector(state => state.toogle.toogleState) 
     const dispatch = useDispatch()
     let navigate = useNavigate()
-    
     const classes = useStyles();
+
+    
+    const [open, setOpen] = useState(false);
+    // const handleOpen = () => setOpen(true);
+    const handleOpen = (user) => {
+        setOpen(true)
+        userDetails = user
+    }
+    const handleClose = () => setOpen(false);
+
     const headCells = [
         {id: 'userId', label: 'User Id'},
         {id: 'name', label: 'Name'},
@@ -68,10 +89,29 @@ const UsersList = () => {
     const addUser = () =>{
         navigate('/user/create')
       }
-      
+    //   console.log(userDetails);
     return (
         <div className={`view-usersList ${classes.usersList}`}>
-            <MTable columns={headCells} datas={users} add={addUser}  edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Search User"/>
+            <MTable columns={headCells} datas={users} add={addUser}  edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Search User" handleOpen={handleOpen}/>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    User Details:
+                    </Typography>
+                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    </Typography> */}
+                        {console.log(userDetails)}
+                        <Avatar>{userDetails['name']}</Avatar>
+                   <Typography>User Id - {userDetails.userId}</Typography>
+                   <Typography>User Name - {userDetails.name}</Typography>
+                   <Typography>User Code - {userDetails.userCode}</Typography>
+                </Box>
+            </Modal>
         </div>
     )
 }

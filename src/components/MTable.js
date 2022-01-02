@@ -104,7 +104,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 
-function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
+function MTable({columns,datas,edit,add,deleteAction,searchLabel, handleOpen}) {
   console.log("columns:",columns,"datsd",datas,">>>>>")
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -211,7 +211,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel}) {
                                     })
                                 }
                                 <TableCell>
-                                    <Tooltip title="View" placement='top' arrow>  
+                                    <Tooltip title="View" placement='top' arrow onClick={() =>handleOpen(rowData)}>  
                                       <span><FaUserAlt style={{color:'green'}} className={classes.tooltip} /></span>
                                     </Tooltip>
                                     <Tooltip title="Edit" placement='top' arrow onClick={() => edit(rowData)}> 
