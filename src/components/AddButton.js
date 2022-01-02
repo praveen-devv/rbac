@@ -1,10 +1,11 @@
 import React from 'react'
 import {BiPlusMedical} from 'react-icons/bi'
-function AddButton() {
+function AddButton({onClick,className}) {
     return (
-        <div>
-            <button type="button" className="btn btn-primary">Add<BiPlusMedical style={{margin:'5px 0px 10px 5px'}}/></button>
-        </div>
+
+        <Button className={className} variant="contained" onClick={onClick} endIcon={<BiPlusMedical />}>
+            Add
+        </Button>
     )
 }
 
