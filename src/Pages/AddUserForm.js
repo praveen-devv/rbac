@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
-import { TextField, Button, Paper,Card, FormControl,Input, InputLabel, FormHelperText ,Box} from "@material-ui/core";
+// ,Card, FormControl,Input, InputLabel, FormHelperText 
+import { TextField, Button, Paper,Box} from "@material-ui/core";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import {addUser} from '../redux/actions/userActions'
-import { showSuccessSnackbar } from '../redux/actions/snackbarActions';
-import CloseIcon from "@material-ui/icons/Close";
+// import { showSuccessSnackbar } from '../redux/actions/snackbarActions';
+// import CloseIcon from "@material-ui/icons/Close";
 import './AddUserForm.css'
 
 function AddUserForm() {
@@ -27,24 +28,28 @@ function AddUserForm() {
               <TextField
                 onChange={e => setUserId(e.target.value)}
                 value={userId}
-                label={"Enter User Id"}
+                margin="dense"
+                label={"User Id"}
                 className="textfield"
                 /><br></br>
               <TextField
                 onChange={e => setUserName(e.target.value)}
                 value={userName}
-                label={"Enter Name"}
+                margin="dense"
+                label={"Name"}
                 className="textfield"
               /><br></br>
               <TextField
                 onChange={e => setUserCode(e.target.value)}
                 value={userCode}
-                label={"Enter User Code"}
+                margin="dense"
+                label={"User Code"}
                 className="textfield"
               /><br></br>
                    {/* onClick={handleClick}  snackbar related */}
-                <Button sx={{ marginTop:"30px",justifyItems: "center" }} type="submit" variant="contained" color="primary" className='btn' onClick={createUser}>Add</Button>
-
+                <Box pt={2} >
+                 <center><Button  type="submit" variant="contained" color="primary" className='btn' onClick={createUser}>Add</Button></center>
+                </Box>
             </form>
       
         </Paper>
