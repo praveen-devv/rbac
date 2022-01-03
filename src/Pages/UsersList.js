@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Container, makeStyles, Box, Typography,Modal, Avatar} from '@material-ui/core'
+import {  makeStyles, Box, Typography,Modal, Avatar} from '@material-ui/core'
 // import {Button,Stack} from '@mui/material';
 // import {Link} from 'react-router-dom'
 // import { headCells, usersData } from './UsersData';
@@ -43,6 +43,13 @@ const style = {
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //     return <Slide direction="down" ref={ref} {...props} />;
 //   });
+
+// if we want random colors for avatars
+function randomColor() {
+    let hex = Math.floor(Math.random() * 0xFFFFFF);
+    let color = "#" + hex.toString(16);
+    return color;
+  }
 let userDetails = {}
 const UsersList = () => {
     const users = useSelector(state => state.users.users)
@@ -70,7 +77,7 @@ const UsersList = () => {
         // console.log(id)
     }
     const editUserHandler = (user) => {
-            console.log(user)
+            // console.log(user)
             navigate('/user/edit',{ state: user })
           
     }
@@ -92,7 +99,7 @@ const UsersList = () => {
     //   console.log(userDetails);
     return (
         <div className={`view-usersList ${classes.usersList}`}>
-            <MTable columns={headCells} datas={users} add={addUser}  edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Search User" handleOpen={handleOpen}/>
+            <MTable columns={headCells} datas={users} add={addUser}  edit={editUserHandler} deleteAction={deleteUserHandler} searchLabel="Users" handleOpen={handleOpen}/>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -105,8 +112,10 @@ const UsersList = () => {
                     </Typography>
                     {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     </Typography> */}
-                        {console.log(userDetails)}
-                        <Avatar>{userDetails['name']}</Avatar>
+                        {/* {console.log(userDetails)} */}
+                        {/* <Avatar>{userDetails.name[0]}</Avatar> */}
+                        {/* { `${userDetails.name.split(' ')[0][0]}${userDetails.name.split(' ')[1][0]}`} */}
+                        <Avatar style={{backgroundColor: randomColor()}}></Avatar>
                    <Typography>User Id - {userDetails.userId}</Typography>
                    <Typography>User Name - {userDetails.name}</Typography>
                    <Typography>User Code - {userDetails.userCode}</Typography>
