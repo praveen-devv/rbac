@@ -1,6 +1,7 @@
 import React from 'react'
 import {BiPlusMedical} from 'react-icons/bi'
-import {Button} from '@material-ui/core'
+// import {Button} from '@material-ui/core'
+import Button from '@mui/material/Button';
 function AddButton({onClick,className}) {
     return (
 
