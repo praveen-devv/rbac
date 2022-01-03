@@ -1,5 +1,5 @@
 const initialState = {
-    assets : [{'id':'1','name':'smartrepo','encode':'smrt1','entype':'app'}]
+    assets : [{'id':'1','name':'smart repo','encode':'smrt1','entype':'app'}]
 }
 
 const assetReducer = (state=initialState,action) => {

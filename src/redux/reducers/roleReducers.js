@@ -1,5 +1,5 @@
 const initialState ={
-    roles:[{roleid:'1',name:'Admin',rolecode:'adm01'},{roleid:'2',name:'Tenantadmin',rolecode:'tadm01'},{roleid:'3',name:'PayrollProcessor',rolecode:'pp02'},{roleid:'4',name:'Employee',rolecode:'emp01'},{roleid:'5',name:'HR',rolecode:'hr01'}]
+    roles:[{roleid:'1',name:'Admin A',rolecode:'adm01'},{roleid:'2',name:'Tenantadmin T',rolecode:'tadm01'},{roleid:'3',name:'Payroll Processor',rolecode:'pp02'},{roleid:'4',name:'Employee E',rolecode:'emp01'},{roleid:'5',name:'H R',rolecode:'hr01'}]
 }
 
 const roleReducer = (state=initialState,action) =>{
