@@ -7,9 +7,9 @@ import Tooltip from '@mui/material/Tooltip';
 import { Search } from "@material-ui/icons";
 import SearchInput from './SearchInput';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Box from '@mui/material/Box';
-import { visuallyHidden } from '@mui/utils';
-import {BiPlusMedical} from 'react-icons/bi'
+// import Box from '@mui/material/Box';
+// import { visuallyHidden } from '@mui/utils';
+// import {BiPlusMedical} from 'react-icons/bi'
 import { 
     Table,
     TableBody,
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
       borderRight:'1px solid rgba(224, 224, 224, 1)'
   },
   tableHeader:{
-    background:'#590037',
+    // background:'#590037',
+    background: '#3c8dbc'
   },
   tableHeaderCell: {
       fontWeight: 'bold',
@@ -77,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
   },
   label:{
     borderRadius:'15px',
-    backgroundColor:'#590037',
+    // backgroundColor:'#590037',
+    backgroundColor: "#3c8dbc",
     color:'#ffffff',
     marginTop:'-40px',
     width:'fit-content',
@@ -98,6 +100,43 @@ const useStyles = makeStyles((theme) => ({
 
   }
 }));
+//fixed different background colors for the avatar.
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash); //eslint-disable-line no-bitwise
+  }
+
+  let color = '#';
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff; //eslint-disable-line no-bitwise
+    color += `00${value.toString(16)}`.substr(-2);
+  }
+   /* eslint-enable no-bitwise */
+  // console.log("avatar colorrrr------",color)
+  return color;
+}
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name)
+      // bgcolor: `${stringToColor(name)}`,
+    },
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  };
+}
+// if we want random colors for avatars
+function randomColor() {
+  let hex = Math.floor(Math.random() * 0xFFFFFF);
+  let color = "#" + hex.toString(16);
+// console.log("random avatar color-----",color)
+  return color;
+}
+
 
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -129,7 +168,7 @@ function descendingComparator(a, b, orderBy) {
 
 
 function MTable({columns,datas,edit,add,deleteAction,searchLabel, handleOpen}) {
-  console.log("columns:",columns,"datsd",datas,">>>>>")
+  // console.log("columns:",columns,"datsd",datas,">>>>>")
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -151,7 +190,7 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel, handleOpen}) {
     let target = e.target;
         setFilterFn({
             fn: items => {
-                if (target.value == "")
+                if (target.value === "")
                     return items;
                 else
                     // return items.filter(item => item.name.toLowerCase().includes(target.value))
@@ -170,15 +209,16 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel, handleOpen}) {
     return stableSort(filterFn.fn(datas), getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
   }
 
-  console.log("RRRRRRRRRRRRRRRRRRRRRRRRR",stableSort(datas, getComparator(order, orderBy)))
+  // console.log("RRRRRRRRRRRRRRRRRRRRRRRRR",stableSort(datas, getComparator(order, orderBy)))
 
+  let label = searchLabel ? searchLabel : "Employees" 
   return (
     <Paper className={classes.paper}>
-        <h3 className={classes.label}>USERS</h3>
+        <h3 className={classes.label}>{label}</h3>
         <Toolbar className={classes.toolbar}>
             <SearchInput 
                 className={classes.searchBox} 
-                label={searchLabel ? searchLabel: "Search Employees"}
+                label={`Search ${label}`}
                 InputProps={{
                     startAdornment: (<InputAdornment position="start">
                         <Search />
@@ -215,19 +255,20 @@ function MTable({columns,datas,edit,add,deleteAction,searchLabel, handleOpen}) {
                     {
 
                         recordsAfterPagingAndSorting().map((rowData,index)=>(
-                            <TableRow key={rowData.id} style={index % 2? { background : "#FBF2FF" }:{ background : "white" }} >
+                            <TableRow key={rowData.id} style={index % 2? { background : "#" }:{ background : "white" }} >
                                 {
                                     columns.map((column)=>{
                                         const value= rowData[column.id];
                                         var avatar=false;
                                         if(column.id==='name')avatar=true
-                                        console.log("Value>>>>",value)
-                                        console.log(rowData)
+                                        // console.log("Value>>>>",value)
+                                        // console.log(rowData)
                                         return(
                                             avatar ?  <TableCell key={column.id}>
                                                         <Grid container>
                                                           <Grid item lg={2}>
-                                                              <Avatar alt={value} src='.' className={classes.avatar}/>
+                                                              {/* <Avatar alt={value} src='.' className={classes.avatar}/> */}
+                                                              <Avatar {...stringAvatar(rowData.name)} style={{backgroundColor: randomColor()}}/>
                                                           </Grid>
                                                           <Grid item lg={10} style={{display:'flex',alignItems:'center'}}>
                                                           <Typography className={classes.name} >{value}</Typography>
