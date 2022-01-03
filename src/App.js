@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SideNavbar from './components/SideNavbar';
 import { Provider } from 'react-redux';
 import store from './redux/store'
-import Login from './Pages/Login';
+// import Login from './Pages/Login';
 import CreateRole from './Pages/CreateRole';
 import ListRoles from './Pages/ListRoles';
 import UsersRole from './Pages/UsersRole';
