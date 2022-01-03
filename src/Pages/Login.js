@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './Login.css'
 import {FaUserCircle, FaLock} from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
+// useDispatch,
+import {  useSelector } from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 
 function Login() {
@@ -12,7 +13,7 @@ function Login() {
     let navigate = useNavigate();
 
     const users = useSelector(state => state.user.userCredentials)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const handleLogin = (event) =>{
         event.preventDefault()
