@@ -12,8 +12,8 @@ function EditUserForm() {
     const dispatch = useDispatch()
     const targetedUser = useLocation()
     const users = useSelector(state => state.users.users)
-    console.log("targetedUser----->",targetedUser)
-    console.log("users------>",users)
+    // console.log("targetedUser----->",targetedUser)
+    // console.log("users------>",users)
     const [userId, setUserId] = useState(targetedUser.state.userId);
     const [userName, setUserName] = useState(targetedUser.state.name);
     const [userCode, setUserCode] = useState(targetedUser.state.userCode);
@@ -32,24 +32,28 @@ function EditUserForm() {
               <TextField
                 onChange={e => setUserId(e.target.value)}
                 value={userId}
-                label={"Enter User Id"}
+                label={"User Id"}
+                margin="dense"
                 className="textfield"
                 /><br></br>
               <TextField
                 onChange={e => setUserName(e.target.value)}
                 value={userName}
-                label={"Enter Name"}
+                margin="dense"
+                label={"Name"}
                 className="textfield"
               /><br></br>
               <TextField
                 onChange={e => setUserCode(e.target.value)}
                 value={userCode}
-                label={"Enter User Code"}
+                margin="dense"
+                label={"User Code"}
                 className="textfield"
               /><br></br>
                    {/* onClick={handleClick}  snackbar related */}
-                <Button type="submit" variant="contained" color="primary" className='btn' onClick={editUserHandler}>Edit</Button>
-
+                <Box pt={2} >
+                 <center><Button type="submit" variant="contained" color="primary" className='btn' onClick={editUserHandler}>Edit</Button></center>
+                </Box>
             </form>
       
         </Paper>
