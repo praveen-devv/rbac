@@ -54,7 +54,7 @@ function ListRoles() {
 
     return (
       <div className={`listroles ${classes.listroles}`}>
-           <MTable columns={columns} datas={roles} add={addRole} deleteAction={handledeleteRole} />
+           <MTable columns={columns} datas={roles} add={addRole} deleteAction={handledeleteRole} searchLabel="Roles"/>
         </div>
     )
 }

@@ -128,7 +128,7 @@ function ViewAsset() {
             
 
             
-            <MTable columns={[{id:'name',label:'Entity Name'},{id:'encode',label:'Entity Code'},{id:'entype',label:'Entity Type'}]} datas={assets} edit={handleClickOpen1} add={addAssest} deleteAction={handleDeleteAsset}/>
+            <MTable columns={[{id:'name',label:'Entity Name'},{id:'encode',label:'Entity Code'},{id:'entype',label:'Entity Type'}]} datas={assets} edit={handleClickOpen1} add={addAssest} deleteAction={handleDeleteAsset} searchLabel="Assets"/>
 
             <Dialog
                 className={classes.dialog}
